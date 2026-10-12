@@ -19,6 +19,18 @@ A Flask web app for running four trained Ultralytics YOLO models on images, vide
 - Kaggle: [murtazakhanpro](https://www.kaggle.com/murtazakhanpro)
 - LinkedIn: [murtazaalikhanworld](https://www.linkedin.com/in/murtazaalikhanworld)
 
+## Preview
+
+<p align="center">
+  <img src="static/murtaza-profile.png" alt="Portrait of Murtaza Ali" width="280">
+  <img src="docs/images/01-choose-model.svg" alt="YOLO Vision Studio interface" width="580">
+</p>
+
+The interface also supports webcam inference and image/video uploads:
+
+![Webcam preview and predictions](docs/images/02-webcam.svg)
+![Image and video upload results](docs/images/03-upload-results.svg)
+
 ## Features
 
 - Object detection, instance segmentation, pose estimation, and oriented bounding boxes (OBB).
