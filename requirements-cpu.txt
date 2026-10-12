@@ -1,0 +1,2 @@
+# CPU-only requirements for local installs and the Docker Space.
+-r requirements.txt

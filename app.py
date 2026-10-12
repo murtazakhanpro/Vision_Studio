@@ -87,7 +87,7 @@ PAGE = r"""<!doctype html>
     @media (max-width: 650px) { .actions, .camera-grid { grid-template-columns: 1fr; } body { padding: 14px 9px; } }
   </style>
 </head><body><main><div class="card">
-  <header><div class="eyebrow">Computer Vision · YOLO</div><h1>YOLO Vision Studio</h1>
+  <header><div class="eyebrow">Computer Vision | YOLO</div><h1>YOLO Vision Studio</h1>
     <p>Choose a trained model and try it on an image, video, or live webcam.</p></header>
   <label for="modelSelect">Active model</label>
   <select id="modelSelect">
@@ -119,9 +119,11 @@ PAGE = r"""<!doctype html>
     <img class="media" id="imageResult" alt="Annotated image result">
   </section>
 </div>
-<footer class="credit">Designed &amp; created by <strong>Murtaza Ali</strong> ·
+<footer class="credit">Designed &amp; created by <strong>Murtaza Ali</strong> |
   <a href="https://www.murtazaalikhan.com" target="_blank" rel="noopener noreferrer">Website</a> ·
-  <a href="https://www.kaggle.com/murtazakhanpro" target="_blank" rel="noopener noreferrer">Kaggle</a>
+  <a href="https://www.kaggle.com/murtazakhanpro" target="_blank" rel="noopener noreferrer">Kaggle</a> ·
+  <a href="https://www.linkedin.com/in/murtazaalikhanworld" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  <br>© 2026 Murtaza Ali. All rights reserved.
 </footer></main>
 <script>
   const modelSelect = document.querySelector('#modelSelect');
