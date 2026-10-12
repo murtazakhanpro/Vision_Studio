@@ -6,4 +6,4 @@ __pycache__/
 # Keep private model weights and local illustration assets out of Git.
 *.pt
 /models/
-/docs/images/
+# /docs/images/
