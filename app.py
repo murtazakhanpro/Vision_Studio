@@ -15,6 +15,7 @@ from ultralytics import YOLO
 
 
 BASE_DIR = Path(__file__).resolve().parent
+MODEL_DIR = Path(os.environ.get("MODEL_DIR", str(BASE_DIR / "models"))).resolve()
 UPLOAD_DIR = BASE_DIR / "uploads"
 OUTPUT_DIR = BASE_DIR / "runs" / "web"
 UPLOAD_DIR.mkdir(exist_ok=True)
@@ -38,10 +39,10 @@ MODEL_LABELS = {
 
 
 def load_models() -> dict[str, YOLO]:
-    missing = [filename for filename in MODEL_FILES.values() if not (BASE_DIR / filename).is_file()]
+    missing = [filename for filename in MODEL_FILES.values() if not (MODEL_DIR / filename).is_file()]
     if missing:
-        raise FileNotFoundError("Missing model weight files beside app.py: " + ", ".join(missing))
-    return {key: YOLO(str(BASE_DIR / filename)) for key, filename in MODEL_FILES.items()}
+        raise FileNotFoundError(f"Missing model weight files in {MODEL_DIR}: " + ", ".join(missing))
+    return {key: YOLO(str(MODEL_DIR / filename)) for key, filename in MODEL_FILES.items()}
 
 
 MODELS = load_models()
@@ -83,11 +84,15 @@ PAGE = r"""<!doctype html>
     .credit { margin: 22px 0 0; color: #aeb9d3; text-align: center; font-size: .9rem; }
     .credit a { color: #aebaff; text-decoration: none; }
     .credit a:hover { text-decoration: underline; }
+    .profile-photo { display: block; width: 176px; height: 176px; margin: 0 auto 18px;
+      border: 3px solid #728cff; border-radius: 50%; object-fit: cover; object-position: center 28%;
+      box-shadow: 0 12px 34px #0008; }
     [hidden] { display: none !important; }
     @media (max-width: 650px) { .actions, .camera-grid { grid-template-columns: 1fr; } body { padding: 14px 9px; } }
   </style>
 </head><body><main><div class="card">
-  <header><div class="eyebrow">Computer Vision | YOLO</div><h1>YOLO Vision Studio</h1>
+  <header><img class="profile-photo" src="/static/murtaza-profile.png" alt="Portrait of Murtaza Ali">
+    <div class="eyebrow">Computer Vision | YOLO</div><h1>YOLO Vision Studio</h1>
     <p>Choose a trained model and try it on an image, video, or live webcam.</p></header>
   <label for="modelSelect">Active model</label>
   <select id="modelSelect">

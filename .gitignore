@@ -2,3 +2,8 @@ uploads/
 runs/
 __pycache__/
 *.py[cod]
+
+# Keep private model weights and local illustration assets out of Git.
+*.pt
+/models/
+/docs/images/

@@ -7,3 +7,6 @@ __pycache__
 uploads
 runs
 *.log
+docs/images/
+models/
+*.pt

@@ -33,8 +33,8 @@ A Flask web app for running four trained Ultralytics YOLO models on images, vide
 - **Computer vision:** Ultralytics YOLO 8.4.153, OpenCV, and NumPy
 - **Inference:** PyTorch and TorchVision CPU wheels
 - **Production server:** Gunicorn
-- **Deployment:** Docker, configured for Hugging Face Spaces
-- **Models:** Four supplied `.pt` YOLO weight files
+- **Deployment:** Docker; Render deployment planned
+- **Models:** Private `.pt` YOLO weight files loaded from `MODEL_DIR`
 
 ## Project structure
 
@@ -45,18 +45,16 @@ Vision_Studio/
 ├── README.md                 # Project guide and deployment notes
 ├── requirements.txt          # Application dependencies and CPU wheel source
 ├── requirements-cpu.txt      # Requirements entry point for CPU installs
-├── object_detection.pt       # Object detection weights
-├── segmentaion_model.pt      # Segmentation weights (supplied filename)
-├── pose_model.pt             # Pose estimation weights
-├── obb.pt                    # Oriented bounding box weights
-├── docs/
-│   └── images/               # Quick-start illustrations
+├── static/
+│   └── murtaza-profile.png    # Profile photo shown in the app
+├── models/                   # Private model weights (ignored by Git and Docker)
+├── docs/images/              # Local illustrations (ignored by Git and Docker)
 ├── model.ipynb               # Model exploration notebook
 ├── uploads/                  # Runtime upload directory (not tracked)
 └── runs/                     # Runtime prediction output (not tracked)
 ```
 
-The segmentation filename preserves the supplied spelling. If you rename the file, update `MODEL_FILES` in `app.py` as well.
+The segmentation filename preserves the supplied spelling. If you rename it, update `MODEL_FILES` in `app.py` as well. Model weights stay outside Git; set `MODEL_DIR` to the folder containing the four weights. Locally, it defaults to `models/`.
 
 ## Run locally
 
@@ -75,13 +73,9 @@ gunicorn --bind 0.0.0.0:7860 --workers 1 --threads 4 --timeout 0 app:app
 
 Choose a model in the app, then select webcam, image, or video input. Webcam access requires a secure browser context such as HTTPS. Uploads are limited to 500 MB. Supported images are JPG, JPEG, PNG, BMP, WEBP, TIF, and TIFF; supported videos are MP4, AVI, MOV, MKV, WEBM, MPEG, and MPG.
 
-![Model and input selection](docs/images/01-choose-model.svg)
-![Webcam preview and predictions](docs/images/02-webcam.svg)
-![Uploaded media and results](docs/images/03-upload-results.svg)
+## Deployment
 
-## Docker and Hugging Face Spaces
-
-The Dockerfile serves the app on port `7860`. The configured Space is [Murtazakhanpro/Vision_Studio](https://huggingface.co/spaces/Murtazakhanpro/Vision_Studio). Include the application files, docs, and four model weights in the Space repository. Git LFS tracking for `.pt` weights is configured in `.gitattributes`.
+The Dockerfile serves the app on port `7860`. The `.dockerignore` excludes weights and local image assets from the build context. For a Render deployment, provide model weights through private storage mounted into the service and set `MODEL_DIR` to that directory. Do not add weights to the public source repository or Docker image.
 
 CPU video inference may take longer than GPU inference. Uploaded files and generated videos use local runtime storage and can be cleared when the container restarts.
 
